@@ -13,19 +13,26 @@ export default Ember.Service.extend({
 
         // CONFIG
 		var config = this.container.lookupFactory('config:environment');
-        if ( config.INTERCOM.api_id ) {
-            this.set('id', config.INTERCOM.api_id);
-        }
 
-        //
-        this.get('session').on('logout', this, this.shutdown);
+        if ( config.INTERCOM ) {
 
-        // LISTEN TO USER TO BE LOADED
-        this.get('user').on('init', this, this.didUserLoad);
+            if ( config.INTERCOM.api_id ) {
 
-        // BOOT IF USER IS NOT authenticated
-        if ( !this.get('session.authenticated') ) {
-            this.boot();
+                this.set('id', config.INTERCOM.api_id);
+
+                //
+                this.get('session').on('logout', this, this.shutdown);
+
+                // LISTEN TO USER TO BE LOADED
+                this.get('user').on('init', this, this.didUserLoad);
+
+                // BOOT IF USER IS NOT authenticated
+                if ( !this.get('session.authenticated') ) {
+                    this.boot();
+                }
+
+            }
+
         }
 
 	},
