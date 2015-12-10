@@ -65,6 +65,8 @@ export default Ember.Service.extend({
         object.sites = this.get('user.model.sites.length');
         object.domains = this.get('user.model.domains.length');
         object.subscriptions = this.get('user.model.subscriptions.length');
+        object.profile = this.get('user.model.profile');
+        object.gender = this.get('user.model.gender');
         return object;
     },
 
