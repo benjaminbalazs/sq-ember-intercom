@@ -20,22 +20,19 @@ export default Ember.Service.extend({
 
                 this.set('id', config.INTERCOM.api_id);
 
-                //
-                this.get('session').on('logout', this, this.shutdown);
-
                 // LISTEN TO USER TO BE LOADED
                 this.get('user').on('init', this, this.didUserLoad);
 
-                // BOOT IF USER IS NOT authenticated
-                if ( !this.get('session.authenticated') ) {
-                    this.boot();
-                }
+                //
+                this.get('session').on('logout', this, this.shutdown);
 
             }
 
         }
 
 	},
+
+    //
 
     didUserLoad() {
 
@@ -88,20 +85,20 @@ export default Ember.Service.extend({
         }
 
         // NEED TO SHIT DOWN IF REBOOTING
-        if ( this.get('boot') ) {
+        if ( this.get('booted') ) {
             this.shutdown();
         }
 
         //
         window.Intercom('boot', data);
-        this.set('boot', true);
+        this.set('booted', true);
 
     },
 
     shutdown() {
-
+        
         window.Intercom('shutdown');
-        this.set('boot', false);
+        this.set('booted', false);
 
     },
 
