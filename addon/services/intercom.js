@@ -43,7 +43,6 @@ export default Ember.Service.extend({
     },
 
     didUserUpdated() {
-
         window.Intercom('update', this.attributes());
 
     },
@@ -96,7 +95,7 @@ export default Ember.Service.extend({
     },
 
     shutdown() {
-        
+
         window.Intercom('shutdown');
         this.set('booted', false);
 
