@@ -101,10 +101,20 @@ export default Ember.Service.extend({
 
     },
 
-    // PUBLIC API
+    // PUBLIC API --------------------------------------------------------------
 
     trackEvent(name, metadata) {
         window.Intercom('trackEvent', name, metadata);
+    },
+
+    //
+
+    showNewMessage(content) {
+        if ( content ) {
+            window.Intercom('showNewMessage', content);
+        } else {
+            window.Intercom('showNewMessage');
+        }
     }
 
 });
