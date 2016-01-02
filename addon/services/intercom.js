@@ -63,6 +63,11 @@ export default Ember.Service.extend({
         object.subscriptions = this.get('user.model.subscriptions.length');
         object.profile = this.get('user.model.profile');
         object.gender = this.get('user.model.gender');
+        object.utm_campaign = this.get('user.model.utm_campaign');
+        object.utm_source = this.get('user.model.utm_source');
+        object.utm_term = this.get('user.model.utm_term');
+        object.utm_medium = this.get('user.model.utm_medium');
+        object.utm_content = this.get('user.model.utm_content');
         return object;
     },
 
