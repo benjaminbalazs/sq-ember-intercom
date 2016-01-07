@@ -48,27 +48,43 @@ export default Ember.Service.extend({
     },
 
     attributes() {
+
         var object = {};
+
         object.email = this.get('user.model.email');
         object.user_id = this.get('user.model.id');
         object.name = this.get('user.model.full_name');
         object.first_name = this.get('user.model.first_name');
         object.last_name = this.get('user.model.last_name');
+        //
         object.language = this.get('user.model.language.identifier');
-        object.language_override = this.get('user.model.language.identifier');
         object.countrycode = this.get('user.model.countrycode.code');
         object.ui_direction = this.get('user.model.ui_direction');
+        //
         object.sites = this.get('user.model.sites.length');
         object.domains = this.get('user.model.domains.length');
         object.subscriptions = this.get('user.model.subscriptions.length');
+        object.transactions = this.get('user.model.transactions.length');
+        //
+        object.total_spend = this.get('user.model.total_spend');
+        object.monthly_spend = this.get('user.model.monthly_spend');
+        object.monthly_spend_domain = this.get('user.model.monthly_spend_domain');
+        object.monthly_spend_site = this.get('user.model.monthly_spend_site');
+        object.active_subscriptions = this.get('user.model.active_subscriptions.length');
+        object.cancelled_subscriptions = this.get('user.model.cancelled_subscriptions.length');
+        //
         object.profile = this.get('user.model.profile');
         object.gender = this.get('user.model.gender');
+        //
         object.utm_campaign = this.get('user.model.utm_campaign');
         object.utm_source = this.get('user.model.utm_source');
         object.utm_term = this.get('user.model.utm_term');
         object.utm_medium = this.get('user.model.utm_medium');
         object.utm_content = this.get('user.model.utm_content');
+        //
+        
         return object;
+
     },
 
     boot() {
