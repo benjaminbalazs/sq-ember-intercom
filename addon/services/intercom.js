@@ -82,7 +82,7 @@ export default Ember.Service.extend({
         object.utm_medium = this.get('user.model.utm_medium');
         object.utm_content = this.get('user.model.utm_content');
         //
-        
+
         return object;
 
     },
@@ -124,7 +124,7 @@ export default Ember.Service.extend({
 
     // PUBLIC API --------------------------------------------------------------
 
-    trackEvent(name, metadata) {
+    event(name, metadata) {
         window.Intercom('trackEvent', name, metadata);
     },
 
