@@ -11,8 +11,8 @@ export default Ember.Service.extend({
 
 		this._super();
 
-        // CONFIG
-		var config = this.container.lookupFactory('config:environment');
+        // CONFIG//
+		var config = Ember.getOwner(this)._lookupFactory('config:environment');
 
         if ( config.INTERCOM ) {
 
