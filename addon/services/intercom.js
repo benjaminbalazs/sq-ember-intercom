@@ -82,6 +82,10 @@ export default Ember.Service.extend({
         object.utm_medium = this.get('user.model.utm_medium');
         object.utm_content = this.get('user.model.utm_content');
         //
+        object.checkout_card_countrycode = this.get('user.model.checkout_card_countrycode');
+        object.checkout_card_bankname = this.get('user.model.checkout_card_bankname');
+        object.checkout_card_kind = this.get('user.model.checkout_card_kind');
+        object.checkout_card_type = this.get('user.model.checkout_card_type');
 
         return object;
 
