@@ -43,7 +43,14 @@ export default Ember.Service.extend({
     },
 
     didUserUpdated() {
-        window.Intercom('update', this.attributes());
+
+        if ( this.get('current_language') !== this.get('user.model.language.identifier') ) {
+            this.shutdown();
+            this.boot();
+            this.set('current_language', this.get('user.model.language.identifier') );
+        } else {
+            window.Intercom('update', this.attributes());
+        }
 
     },
 
@@ -95,6 +102,17 @@ export default Ember.Service.extend({
 
         var data = { app_id: this.get('id') };
 
+        //
+
+        if ( this.get('user.storage.language_identifier') ) {
+            var identifier = this.get('user.storage.language_identifier');
+            data.language_override = identifier;
+        } else {
+            data.language_override = 'en';
+        }
+
+        this.set('current_language', data.language_override);
+
         // IF USER IS LOGGED OUT, BUT HAS LOGGED IN BEFORE
         if ( this.get('session.authenticated') === false ) {
             if ( this.get('session.credentials.email') ) {
@@ -108,7 +126,7 @@ export default Ember.Service.extend({
             data[param] = object[param];
         }
 
-        // NEED TO SHIT DOWN IF REBOOTING
+        // NEED TO shutdownT DOWN IF REBOOTING
         if ( this.get('booted') ) {
             this.shutdown();
         }
