@@ -80,7 +80,7 @@ export default Ember.Service.extend({
         object.active_subscriptions = this.get('user.model.active_subscriptions.length');
         object.cancelled_subscriptions = this.get('user.model.cancelled_subscriptions.length');
         //
-        object.profile = this.get('user.model.profile');
+        object.phone_number = this.get('user.model.phone_number');
         object.gender = this.get('user.model.gender');
         //
         object.utm_campaign = this.get('user.model.utm_campaign');
