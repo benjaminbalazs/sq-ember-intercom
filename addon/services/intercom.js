@@ -83,6 +83,9 @@ export default Ember.Service.extend({
         object.phone_number = this.get('user.model.phone_number');
         object.gender = this.get('user.model.gender');
         object.invitation_code = this.get('user.model.invitation_code.identifier');
+        object.referral_code = this.get('user.model.referral_code.identifier');
+        object.verified = this.get('user.model.verified');
+        object.phone_number = this.get('user.model.phone_number');
         //
         object.utm_campaign = this.get('user.model.utm_campaign');
         object.utm_source = this.get('user.model.utm_source');
