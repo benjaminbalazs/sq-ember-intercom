@@ -4,6 +4,7 @@ export default Ember.Service.extend({
 
     session: Ember.inject.service(),
     user: Ember.inject.service(),
+    request: Ember.inject.service(),
 
 	//
 
@@ -36,11 +37,36 @@ export default Ember.Service.extend({
 
     didUserLoad() {
 
-        this.boot();
+        var self = this;
 
-        this.get('user.model').on('didUpdate', this, this.didUserUpdated);
+        return this.getHash().then(function() {
+
+            self.boot();
+
+            self.get('user.model').on('didUpdate', self, self.didUserUpdated);
+
+        });
 
     },
+
+    //
+
+    getHash() {
+
+        var self = this;
+        var user_id = this.get('user.model.id');
+
+        return this.get('request').GET('intercom/' + user_id).then(function(data) {
+
+            self.set('hash', data.hash);
+
+            return Ember.RSVP.Promise.resolve(data.hash);
+
+        });
+
+    },
+
+    //
 
     didUserUpdated() {
 
@@ -57,6 +83,8 @@ export default Ember.Service.extend({
     attributes() {
 
         var object = {};
+
+        object.user_hash = this.get('hash');
 
         object.email = this.get('user.model.email');
         object.user_id = this.get('user.model.id');
@@ -103,7 +131,7 @@ export default Ember.Service.extend({
     },
 
     boot() {
-        
+
         var data = { app_id: this.get('id') };
 
         //
