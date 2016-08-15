@@ -103,7 +103,7 @@ export default Ember.Service.extend({
     },
 
     boot() {
-
+        
         var data = { app_id: this.get('id') };
 
         //
