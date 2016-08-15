@@ -22,7 +22,7 @@ export default Ember.Service.extend({
                 this.set('id', config.INTERCOM.api_id);
 
                 // LISTEN TO USER TO BE LOADED
-                this.get('user').on('init', this, this.didUserLoad);
+                this.get('user').on('init', this, this.didUserInitiated);
 
                 //
                 this.get('session').on('logout', this, this.shutdown);
@@ -35,17 +35,35 @@ export default Ember.Service.extend({
 
     //
 
+    didUserInitiated() {
+
+        if ( this.get('user.model.id') ) {
+            this.didUserLoad();
+        } else {
+            this.get('user.model').addObserver('id', this, this.didUserLoad);
+        }
+
+    },
+
+    //
+
     didUserLoad() {
 
         var self = this;
 
-        return this.getHash().then(function() {
+        if ( this.get('user.model.id') ) {
 
-            self.boot();
+            this.get('user.model').removeObserver('id', this, this.didUserLoad);
 
-            self.get('user.model').on('didUpdate', self, self.didUserUpdated);
+            return this.getHash().then(function() {
 
-        });
+                self.boot();
+
+                self.get('user.model').on('didUpdate', self, self.didUserUpdated);
+
+            });
+
+        }
 
     },
 
