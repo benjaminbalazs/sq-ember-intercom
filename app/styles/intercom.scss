@@ -1,23 +1,17 @@
-#Intercom {
-
-}
-
-#intercom-container .intercom-launcher-button {
-
-    background-color: $purple !important;
-    border: none !important;
-    box-shadow: 0 6px 13px 0 rgba(0,0,0,.1) !important;
-    transition: all 0.1s linear;
-
-}
-
-#intercom-container .intercom-launcher-button:hover {
-
-    background-color: $purple_darker_1 !important;
-    box-shadow: 0 10px 20px 0 rgba(0,0,0,.15) !important;
-
-}
-
 .intercom-conversation {
     font-family: "Roboto", sans-serif !important;
+}
+
+body[dir=rtl] {
+
+    .intercom-frame {
+
+        font-family: "El Messiri", sans-serif !important;
+
+        .intercom-comment-body {
+            direction: rtl;
+        }
+
+    }
+    
 }
