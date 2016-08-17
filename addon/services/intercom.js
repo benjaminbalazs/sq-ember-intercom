@@ -86,6 +86,18 @@ export default Ember.Service.extend({
 
     //
 
+    pageview() {
+
+        var self = this;
+
+        Ember.run.later(function() {
+            self.update();
+        }, 500);
+
+    },
+
+    //
+
     didUserUpdated() {
 
         if ( this.get('current_language') !== this.get('user.model.language.identifier') ) {
@@ -93,9 +105,13 @@ export default Ember.Service.extend({
             this.boot();
             this.set('current_language', this.get('user.model.language.identifier') );
         } else {
-            window.Intercom('update', this.attributes());
+            this.update();
         }
 
+    },
+
+    update() {
+        window.Intercom('update', this.attributes());
     },
 
     attributes() {
@@ -273,7 +289,15 @@ export default Ember.Service.extend({
     // PUBLIC API --------------------------------------------------------------
 
     event(name, metadata) {
+
         window.Intercom('trackEvent', name, metadata);
+
+        var self = this;
+
+        Ember.run.later(function() {
+            self.update();
+        }, 500);
+
     },
 
     //
