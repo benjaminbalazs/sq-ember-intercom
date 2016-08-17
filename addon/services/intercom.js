@@ -189,7 +189,6 @@ export default Ember.Service.extend({
         window.Intercom('onShow', this.onShow);
 
         //
-        this.applyCss(data.language_override);
 
         //
         //this.showNewMessage();
@@ -216,15 +215,16 @@ export default Ember.Service.extend({
             var robotoFontStyle = 'font-family: "Roboto", sans-serif !important;';
             var messiriFontStyle = 'font-family: "El Messiri", sans-serif !important;';
 
-            // DIRECTION
-            var direction = 'ltr';
-            var fontStyle = robotoFontStyle;
+            var directionStyle;
+            var fontStyle;
 
             if ( window.language_identifier === 'ar' || window.language_identifier === 'ur' || window.language_identifier === 'fa' ) {
-                direction = 'rtl';
+                directionStyle = 'direction: ' + 'rtl';
                 fontStyle = messiriFontStyle;
+            } else {
+                directionStyle = 'direction: ' + 'ltr';
+                fontStyle = robotoFontStyle;
             }
-            var directionStyle = 'direction: ' + direction;
 
             // BODY
             var body = iframe.contents().find('body');
@@ -238,28 +238,19 @@ export default Ember.Service.extend({
             style = style + "#intercom-container a, #intercom-container abbr, #intercom-container acronym, #intercom-container address, #intercom-container applet, #intercom-container article, #intercom-container aside, #intercom-container audio, #intercom-container b, #intercom-container big, #intercom-container blockquote, #intercom-container button, #intercom-container canvas, #intercom-container caption, #intercom-container center, #intercom-container cite, #intercom-container code, #intercom-container dd, #intercom-container del, #intercom-container details, #intercom-container dfn, #intercom-container div, #intercom-container div.form, #intercom-container dl, #intercom-container dt, #intercom-container em, #intercom-container fieldset, #intercom-container figcaption, #intercom-container figure, #intercom-container footer, #intercom-container form, #intercom-container h1, #intercom-container h2, #intercom-container h3, #intercom-container h4, #intercom-container h5, #intercom-container h6, #intercom-container header, #intercom-container hgroup, #intercom-container i, #intercom-container iframe, #intercom-container img, #intercom-container input, #intercom-container input[type], #intercom-container ins, #intercom-container kbd, #intercom-container label, #intercom-container legend, #intercom-container li, #intercom-container mark, #intercom-container menu, #intercom-container nav, #intercom-container object, #intercom-container ol, #intercom-container p, #intercom-container pre, #intercom-container q, #intercom-container s, #intercom-container samp, #intercom-container section, #intercom-container small, #intercom-container span, #intercom-container strike, #intercom-container strong, #intercom-container sub, #intercom-container summary, #intercom-container sup, #intercom-container table, #intercom-container tbody, #intercom-container td, #intercom-container textarea, #intercom-container tfoot, #intercom-container th, #intercom-container thead, #intercom-container time, #intercom-container tr, #intercom-container tt, #intercom-container u, #intercom-container ul, #intercom-container var, #intercom-container video {" + fontStyle + "}";
 
             // ADMIN NAME
-            style = style + "#intercom-container .intercom-team-profile-full-admin-name {" + robotoFontStyle + "}";
+            style = style + "#intercom-container .intercom-team-profile-full-admin-name, #intercom-container .intercom-admin-profile-compact-admin-name {" + robotoFontStyle + "}";
 
             // INPUT FIELD
-            style = style + "#intercom-container .intercom-team-profile-full-intro span, #intercom-container .intercom-composer, #intercom-container .intercom-composer textarea, #intercom-container .intercom-composer pre, #intercom-container .intercom-composer textarea::-webkit-input-placeholder {" + fontStyle + directionStyle + "}";
+            style = style + "#intercom-container .intercom-team-profile-full-intro span, #intercom-container .intercom-composer, #intercom-container .intercom-composer textarea, #intercom-container .intercom-composer pre, #intercom-container .intercom-composer textarea::-webkit-input-placeholder, #intercom-container .intercom-composer textarea .placeholder {" + fontStyle + directionStyle + "}";
 
             // MESSAGE
-            style = style + "#intercom-container .intercom-block-paragraph p {" + fontStyle + directionStyle + "}";
+            style = style + "#intercom-container .intercom-conversation-summary-body-text-summary, #intercom-container .intercom-block.intercom-block-paragraph, #intercom-container intercom-snippet-body, #intercom-container .intercom-block-heading {" + fontStyle + directionStyle + "}";
 
             //
-            iframe.contents().find("head").append(Ember.$("<style type='text/css'>" +  style  + "</style>"));
+            iframe.contents().find("head").append(Ember.$("<style id='custom-intercom' type='text/css'>" +  style  + "</style>"));
+
 
         }, 100);
-
-    },
-
-    // APPLY CSS
-
-    applyCss(language) {
-
-        if ( language ) {
-
-        }
 
     },
 

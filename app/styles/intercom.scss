@@ -1,48 +1,31 @@
 body[dir=rtl] {
 
-    .intercom-app-container {
+    .intercom-snippet-body, .intercom-snippet-body span, .intercom-snippet-body h1, .intercom-notifications-dismiss-button, .intercom-notifications-dismiss-button span {
 
-        iframe {
+        font-family: "El Messiri", sans-serif !important;
+        direction: rtl !important;
 
-            font-family: "El Messiri", sans-serif !important;
+    }
 
-        }
-
+    .intercom-notifications-dismiss-button-icon {
+        margin-right: 5px !important;
+        margin-left: 0px !important;
     }
 
 }
 
-.intercom-app-container {
+body[dir=ltr] {
 
-    iframe {
+
+    .intercom-snippet-body, .intercom-snippet-body span, .intercom-snippet-body h1, .intercom-notifications-dismiss-button, .intercom-notifications-dismiss-button span {
 
         font-family: "Roboto", sans-serif !important;
+        direction: ltr !important;
 
     }
+
 }
 
-
-#intercom-container {
-
-    .intercom-app-container {
-
-        .intercom-app {
-
-            .intercom-messenger-frame {
-
-                iframe {
-
-                    #intercom-container {
-                        font-family: "Roboto", sans-serif !important;
-                    }
-
-                }
-
-            }
-
-
-        }
-
-    }
-
+.intercom-author-summary-name, .intercom-author-summary-from-clause {
+    font-family: "Roboto", sans-serif !important;
 }
