@@ -17,9 +17,9 @@ export default Ember.Service.extend({
 
         if ( config.INTERCOM ) {
 
-            if ( config.INTERCOM.api_id ) {
+            if ( config.INTERCOM.app_id ) {
 
-                this.set('id', config.INTERCOM.api_id);
+                this.set('id', config.INTERCOM.app_id);
 
                 // LISTEN TO USER TO BE LOADED
                 this.get('user').on('init', this, this.didUserInitiated);
