@@ -127,6 +127,7 @@ export default Ember.Service.extend({
         object.last_name = this.get('user.model.last_name');
         //
         object.language = this.get('user.model.language.identifier');
+        object.language_override = this.get('user.model.language.identifier');
         object.countrycode = this.get('user.model.countrycode.code');
         object.ui_direction = this.get('user.model.ui_direction');
         //
@@ -161,7 +162,7 @@ export default Ember.Service.extend({
         object.checkout_card_type = this.get('user.model.checkout_card_type');
 
         window.language_identifier = object.language;
-        
+
         return object;
 
     },
@@ -171,14 +172,6 @@ export default Ember.Service.extend({
         var data = { app_id: this.get('id') };
 
         //
-
-        if ( this.get('user.storage.language_identifier') ) {
-            var identifier = this.get('user.storage.language_identifier');
-            data.language_override = identifier;
-        } else {
-            data.language_override = 'en';
-        }
-
         this.set('current_language', data.language_override);
 
         // IF USER IS LOGGED OUT, BUT HAS LOGGED IN BEFORE
