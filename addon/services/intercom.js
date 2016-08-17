@@ -246,6 +246,22 @@ export default Ember.Service.extend({
             // MESSAGE
             style = style + "#intercom-container .intercom-conversation-summary-body-text-summary, #intercom-container .intercom-block.intercom-block-paragraph, #intercom-container intercom-snippet-body, #intercom-container .intercom-block-heading {" + fontStyle + directionStyle + "}";
 
+            // BUTTON
+            style = style + "#intercom-container .intercom-conversations-new-conversation-button { background-color: #C89AEB; border-radius: 5px; line-height: 40px; height: 40px; box-shadow: none; padding-left: 25px; padding-right: 25px; font-weight: normal; }";
+            style = style + "#intercom-container .intercom-conversations-new-conversation-button span { text-transform:uppercase; background-image:none; padding-left: 0px; line-height: 40px; }";
+
+            // LISTEN
+            style = style + "#intercom-container .intercom-conversation-summary { border-top: 2px solid #f3f4f5 !important; }";
+            style = style + "#intercom-container .intercom-conversation-summary:last-child { border-bottom: 2px solid #f3f4f5 !important; }";
+            style = style + "#intercom-container .intercom-conversation-summary:first-child { border-top: 0px solid #f3f4f5 !important; }";
+
+            //
+            style = style + "#intercom-container .intercom-conversations-header, #intercom-container .intercom-conversation-body-profile { background-color: #6A7E9F !important; box-shadow:none !important; }";
+
+            // MESSAGE BUBBLE
+            style = style + "#intercom-container .intercom-comment-container-user .intercom-comment { background-color: #6A7E9F }";
+
+
             //
             iframe.contents().find("head").append(Ember.$("<style id='custom-intercom' type='text/css'>" +  style  + "</style>"));
 

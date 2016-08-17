@@ -29,3 +29,23 @@ body[dir=ltr] {
 .intercom-author-summary-name, .intercom-author-summary-from-clause {
     font-family: "Roboto", sans-serif !important;
 }
+
+#intercom-container {
+
+    .intercom-app-container {
+
+        .intercom-messenger-frame {
+
+            border-radius: 6px !important;
+            //border: 2px solid $grey_darker_1;
+            //box-shadow: none !important;
+
+        }
+
+    }
+
+    .intercom-conversations-new-conversation-button {
+        background-color: $purple;
+    }
+
+}
