@@ -216,12 +216,13 @@ export default Ember.Service.extend({
             var robotoFontStyle = 'font-family: "Roboto", sans-serif !important;';
             var messiriFontStyle = 'font-family: "El Messiri", sans-serif !important;';
 
-            var fontStyle = messiriFontStyle;
-
             // DIRECTION
             var direction = 'ltr';
+            var fontStyle = robotoFontStyle;
+
             if ( window.language_identifier === 'ar' || window.language_identifier === 'ur' || window.language_identifier === 'fa' ) {
                 direction = 'rtl';
+                fontStyle = messiriFontStyle;
             }
             var directionStyle = 'direction: ' + direction;
 
@@ -248,7 +249,7 @@ export default Ember.Service.extend({
             //
             iframe.contents().find("head").append(Ember.$("<style type='text/css'>" +  style  + "</style>"));
 
-        }, 500);
+        }, 100);
 
     },
 
