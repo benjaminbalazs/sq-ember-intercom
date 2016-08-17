@@ -126,7 +126,7 @@ export default Ember.Service.extend({
         object.first_name = this.get('user.model.first_name');
         object.last_name = this.get('user.model.last_name');
         //
-        window.language_identifier = object.language = this.get('user.model.language.identifier');
+        object.language = this.get('user.model.language.identifier');
         object.countrycode = this.get('user.model.countrycode.code');
         object.ui_direction = this.get('user.model.ui_direction');
         //
@@ -160,6 +160,8 @@ export default Ember.Service.extend({
         object.checkout_card_kind = this.get('user.model.checkout_card_kind');
         object.checkout_card_type = this.get('user.model.checkout_card_type');
 
+        window.language_identifier = object.language;
+        
         return object;
 
     },
