@@ -1,17 +1,48 @@
-.intercom-conversation {
-    font-family: "Roboto", sans-serif !important;
-}
-
 body[dir=rtl] {
 
-    .intercom-frame {
+    .intercom-app-container {
 
-        font-family: "El Messiri", sans-serif !important;
+        iframe {
 
-        .intercom-comment-body {
-            direction: rtl;
+            font-family: "El Messiri", sans-serif !important;
+
         }
 
     }
-    
+
+}
+
+.intercom-app-container {
+
+    iframe {
+
+        font-family: "Roboto", sans-serif !important;
+
+    }
+}
+
+
+#intercom-container {
+
+    .intercom-app-container {
+
+        .intercom-app {
+
+            .intercom-messenger-frame {
+
+                iframe {
+
+                    #intercom-container {
+                        font-family: "Roboto", sans-serif !important;
+                    }
+
+                }
+
+            }
+
+
+        }
+
+    }
+
 }
