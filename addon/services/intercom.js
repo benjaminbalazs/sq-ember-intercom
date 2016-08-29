@@ -12,26 +12,35 @@ export default Ember.Service.extend({
 
 		this._super();
 
-        // CONFIG//
 		var config = Ember.getOwner(this)._lookupFactory('config:environment');
 
-        if ( config.INTERCOM ) {
+        if ( this.shouldinit() ) {
 
-            if ( config.INTERCOM.app_id ) {
+            if ( config.INTERCOM ) {
 
-                this.set('id', config.INTERCOM.app_id);
+                if ( config.INTERCOM.app_id ) {
 
-                // LISTEN TO USER TO BE LOADED
-                this.get('user').on('init', this, this.didUserInitiated);
+                    this.set('id', config.INTERCOM.app_id);
 
-                //
-                this.get('session').on('logout', this, this.shutdown);
+                    // LISTEN TO USER TO BE LOADED
+                    this.get('user').on('init', this, this.didUserInitiated);
+
+                    //
+                    this.get('session').on('logout', this, this.shutdown);
+
+                }
 
             }
 
         }
 
 	},
+
+    //
+
+    shouldinit() {
+        return true;
+    },
 
     //
 
@@ -111,7 +120,9 @@ export default Ember.Service.extend({
     },
 
     update() {
-        window.Intercom('update', this.attributes());
+        if ( this.shouldinit() ) {
+            window.Intercom('update', this.attributes());
+        }
     },
 
     attributes() {
@@ -169,6 +180,10 @@ export default Ember.Service.extend({
 
     boot() {
 
+        if ( this.shouldinit() === false ) {
+            return;
+        }
+
         var data = { app_id: this.get('id') };
 
         //
@@ -208,8 +223,12 @@ export default Ember.Service.extend({
 
     shutdown() {
 
-        window.Intercom('shutdown');
-        this.set('booted', false);
+        if ( this.shouldinit() ) {
+
+            window.Intercom('shutdown');
+            this.set('booted', false);
+
+        }
 
     },
 
@@ -285,6 +304,10 @@ export default Ember.Service.extend({
 
     event(name, metadata) {
 
+        if ( this.shouldinit() === false ) {
+            return;
+        }
+        
         window.Intercom('trackEvent', name, metadata);
 
         var self = this;
