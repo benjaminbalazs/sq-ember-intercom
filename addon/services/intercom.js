@@ -159,7 +159,6 @@ export default Ember.Service.extend({
         object.invitation_code = this.get('user.model.invitation_code.identifier');
         object.referral_code = this.get('user.model.referral_code.identifier');
         object.verified = this.get('user.model.verified');
-        object.phone_number = this.get('user.model.phone_number');
         //
         object.utm_campaign = this.get('user.model.utm_campaign');
         object.utm_source = this.get('user.model.utm_source');
@@ -171,6 +170,13 @@ export default Ember.Service.extend({
         object.checkout_card_bankname = this.get('user.model.checkout_card_bankname');
         object.checkout_card_kind = this.get('user.model.checkout_card_kind');
         object.checkout_card_type = this.get('user.model.checkout_card_type');
+        //
+        object.authentication = 'email';
+        if ( this.get('user.model.google_user.id') ) {
+            object.authentication = 'google';
+        } else if ( this.get('user.model.facebook_user.id') ) {
+            object.authentication = 'facebook';
+        }
 
         window.language_identifier = object.language;
 
@@ -307,7 +313,7 @@ export default Ember.Service.extend({
         if ( this.shouldinit() === false ) {
             return;
         }
-        
+
         window.Intercom('trackEvent', name, metadata);
 
         var self = this;
