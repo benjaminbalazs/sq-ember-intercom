@@ -140,6 +140,9 @@ export default Ember.Service.extend({
         object.language = this.get('user.model.language.identifier');
         object.language_override = this.get('user.model.language.identifier');
         object.countrycode = this.get('user.model.countrycode.code');
+        if ( this.get('user.model.citycode.code') ) {
+            object.citycode = this.get('user.model.citycode.code');
+        }
         object.ui_direction = this.get('user.model.ui_direction');
         //
         object.sites = this.get('user.model.sites.length');
@@ -149,8 +152,6 @@ export default Ember.Service.extend({
         //
         object.total_spend = this.get('user.model.total_spend');
         object.monthly_spend = this.get('user.model.monthly_spend');
-        object.monthly_spend_domain = this.get('user.model.monthly_spend_domain');
-        object.monthly_spend_site = this.get('user.model.monthly_spend_site');
         object.active_subscriptions = this.get('user.model.active_subscriptions.length');
         object.cancelled_subscriptions = this.get('user.model.cancelled_subscriptions.length');
         //
@@ -165,11 +166,6 @@ export default Ember.Service.extend({
         object.utm_term = this.get('user.model.utm_term');
         object.utm_medium = this.get('user.model.utm_medium');
         object.utm_content = this.get('user.model.utm_content');
-        //
-        object.checkout_card_countrycode = this.get('user.model.checkout_card_countrycode');
-        object.checkout_card_bankname = this.get('user.model.checkout_card_bankname');
-        object.checkout_card_kind = this.get('user.model.checkout_card_kind');
-        object.checkout_card_type = this.get('user.model.checkout_card_type');
         //
         object.authentication = 'email';
         if ( this.get('user.model.google_user.id') ) {
