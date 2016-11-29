@@ -238,9 +238,10 @@ export default Ember.Service.extend({
 
     onShow() {
 
+        return;
         Ember.run.later(function() {
 
-            var iframe = Ember.$('iframe[data-reactid=".0.1.0.$=10.0"]');
+            var iframe = Ember.$('iframe[allowfullscreen]');
 
             // FONTS
 
@@ -259,6 +260,7 @@ export default Ember.Service.extend({
             }
 
             // BODY
+            console.log(iframe.contents());
             var body = iframe.contents().find('body');
             body.attr('dir', 'rtl');
 
@@ -279,7 +281,7 @@ export default Ember.Service.extend({
             style = style + "#intercom-container .intercom-conversation-summary-body-text-summary, #intercom-container .intercom-block.intercom-block-paragraph, #intercom-container intercom-snippet-body, #intercom-container .intercom-block-heading {" + fontStyle + directionStyle + "}";
 
             // BUTTON
-            style = style + "#intercom-container .intercom-conversations-new-conversation-button { background-color: #C89AEB; border-radius: 5px; line-height: 40px; height: 40px; box-shadow: none; padding-left: 25px; padding-right: 25px; font-weight: normal; }";
+            style = style + "#intercom-container .intercom-conversations-new-conversation-button { background-color: #6ABC50; border-radius: 5px; line-height: 40px; height: 40px; box-shadow: none; padding-left: 25px; padding-right: 25px; font-weight: normal; }";
             style = style + "#intercom-container .intercom-conversations-new-conversation-button span { text-transform:uppercase; background-image:none; padding-left: 0px; line-height: 40px; }";
 
             // LISTEN
@@ -292,7 +294,6 @@ export default Ember.Service.extend({
 
             // MESSAGE BUBBLE
             style = style + "#intercom-container .intercom-comment-container-user .intercom-comment { background-color: #6A7E9F }";
-
 
             //
             iframe.contents().find("head").append(Ember.$("<style id='custom-intercom' type='text/css'>" +  style  + "</style>"));
