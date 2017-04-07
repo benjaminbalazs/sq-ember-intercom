@@ -1,18 +1,18 @@
 import Ember from 'ember';
+import config from 'ember-get-config';
 
 export default Ember.Service.extend({
 
     session: Ember.inject.service(),
     user: Ember.inject.service(),
     request: Ember.inject.service(),
+    fastboot: Ember.inject.service(),
 
 	//
 
 	init() {
 
 		this._super();
-
-		var config = Ember.getOwner(this)._lookupFactory('config:environment');
 
         if ( this.shouldinit() ) {
 
@@ -39,7 +39,7 @@ export default Ember.Service.extend({
     //
 
     shouldinit() {
-        return true;
+        return ( this.get('fastboot.isFastBoot') !== true );
     },
 
     //
@@ -182,9 +182,7 @@ export default Ember.Service.extend({
 
     boot() {
 
-        if ( this.shouldinit() === false ) {
-            return;
-        }
+        if ( this.shouldinit() === false ) { return; }
 
         var data = { app_id: this.get('id') };
 
@@ -216,11 +214,6 @@ export default Ember.Service.extend({
         //
         window.Intercom('onShow', this.onShow);
 
-        //
-
-        //
-        //this.showNewMessage();
-
     },
 
     shutdown() {
@@ -238,6 +231,7 @@ export default Ember.Service.extend({
 
     onShow() {
 
+        /*
         return;
         Ember.run.later(function() {
 
@@ -300,16 +294,14 @@ export default Ember.Service.extend({
 
 
         }, 100);
-
+        */
     },
 
     // PUBLIC API --------------------------------------------------------------
 
     event(name, metadata) {
 
-        if ( this.shouldinit() === false ) {
-            return;
-        }
+        if ( this.shouldinit() === false ) { return; }
 
         window.Intercom('trackEvent', name, metadata);
 
@@ -324,11 +316,15 @@ export default Ember.Service.extend({
     //
 
     showNewMessage(content) {
+
+        if ( this.shouldinit() === false ) { return; }
+
         if ( content ) {
             window.Intercom('showNewMessage', content);
         } else {
             window.Intercom('showNewMessage');
         }
+
     }
 
 });
