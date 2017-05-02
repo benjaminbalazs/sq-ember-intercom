@@ -10,7 +10,7 @@ module.exports = {
         this._super.included(app);
 
         if ( !process.env.EMBER_CLI_FASTBOOT ) {
-            app.import('vendor/intercom.js');
+            //app.import('vendor/intercom.js');
         }
 
       },
