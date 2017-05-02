@@ -40,6 +40,10 @@ export default Ember.Service.extend({
 
     script() {
 
+        window.intercomSettings = {
+            app_id: config.INTERCOM.app_id
+        };
+
         var w=window;
         var ic=w.Intercom;
 
