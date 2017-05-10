@@ -157,8 +157,14 @@ export default Ember.Service.extend({
 
     update() {
         if ( this.shouldinit() ) {
-            this.debugger('update', this.attributes());
-            window.Intercom('update', this.attributes());
+
+            var attributes = this.attributes();
+
+            if ( attributes.email ) {
+                this.debugger('update', attributes);
+                window.Intercom('update', attributes);
+            }
+
         }
     },
 
