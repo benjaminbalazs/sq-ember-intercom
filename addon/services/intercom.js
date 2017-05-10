@@ -77,7 +77,7 @@ export default Ember.Service.extend({
     //
 
     shouldinit() {
-        return ( this.get('fastboot.isFastBoot') !== true );
+        return ( this.get('fastboot.isFastBoot') !== true && config.INTERCOM );
     },
 
     //
