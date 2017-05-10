@@ -22,6 +22,10 @@ export default Ember.Service.extend({
 
                     this.script();
 
+                    if ( config.INTERCOM.debug === true ) {
+                        this.set('debug', true);
+                    }
+
                     this.set('id', config.INTERCOM.app_id);
 
                     // LISTEN TO USER TO BE LOADED
@@ -153,6 +157,7 @@ export default Ember.Service.extend({
 
     update() {
         if ( this.shouldinit() ) {
+            this.debugger('update', this.attributes());
             window.Intercom('update', this.attributes());
         }
     },
@@ -335,6 +340,8 @@ export default Ember.Service.extend({
 
         if ( this.shouldinit() === false ) { return; }
 
+        this.debugger('trackEvent', name, metadata);
+
         window.Intercom('trackEvent', name, metadata);
 
         var self = this;
@@ -357,6 +364,12 @@ export default Ember.Service.extend({
             window.Intercom('showNewMessage');
         }
 
-    }
+    },
+
+    debugger(name, action) {
+        if ( this.get('debug') ) {
+            console.log('intercom:', name, action);
+        }
+    },
 
 });
