@@ -170,7 +170,10 @@ export default Ember.Service.extend({
                 this.debugger('update', attributes);
                 window.Intercom('update', attributes);
 
-            } else {
+            } else if ( config.INTERCOM.public === true ) {
+
+                this.debugger('update');
+                window.Intercom('update');
 
             }
 
@@ -229,7 +232,7 @@ export default Ember.Service.extend({
                 object.authentication = 'email';
             }
         }
-        
+
         window.language_identifier = object.language;
 
         return object;
