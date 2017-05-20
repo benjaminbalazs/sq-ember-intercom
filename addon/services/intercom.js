@@ -156,6 +156,7 @@ export default Ember.Service.extend({
     },
 
     update() {
+
         if ( this.shouldinit() ) {
 
             var attributes = this.attributes();
@@ -166,6 +167,7 @@ export default Ember.Service.extend({
             }
 
         }
+        
     },
 
     attributes() {
@@ -190,13 +192,13 @@ export default Ember.Service.extend({
         //
         object.sites = this.get('user.model.sites.length');
         object.domains = this.get('user.model.domains.length');
-        object.subscriptions = this.get('user.model.subscriptions.length');
-        object.transactions = this.get('user.model.transactions.length');
+        //object.subscriptions = this.get('user.model.subscriptions.length');
+        //object.transactions = this.get('user.model.transactions.length');
         //
         object.total_spend = this.get('user.model.total_spend');
-        object.monthly_spend = this.get('user.model.monthly_spend');
+        //object.monthly_spend = this.get('user.model.monthly_spend');
         object.active_subscriptions = this.get('user.model.active_subscriptions.length');
-        object.cancelled_subscriptions = this.get('user.model.cancelled_subscriptions.length');
+        //object.cancelled_subscriptions = this.get('user.model.cancelled_subscriptions.length');
         //
         object.phone_number = this.get('user.model.phone_number');
         object.gender = this.get('user.model.gender');
