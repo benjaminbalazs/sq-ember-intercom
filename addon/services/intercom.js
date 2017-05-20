@@ -97,7 +97,7 @@ export default Ember.Service.extend({
     //
 
     didUserLoad() {
-        console.log('didUserLoad');
+
         var self = this;
 
         if ( this.get('user.model.id') ) {
