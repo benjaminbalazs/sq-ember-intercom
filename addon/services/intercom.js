@@ -34,6 +34,10 @@ export default Ember.Service.extend({
                     //
                     this.get('session').on('logout', this, this.shutdown);
 
+                    if ( config.INTERCOM.public === true ) {
+                        this.boot();
+                    }
+
                 }
 
             }
@@ -93,7 +97,7 @@ export default Ember.Service.extend({
     //
 
     didUserLoad() {
-
+        console.log('didUserLoad');
         var self = this;
 
         if ( this.get('user.model.id') ) {
@@ -162,12 +166,16 @@ export default Ember.Service.extend({
             var attributes = this.attributes();
 
             if ( attributes.email ) {
+
                 this.debugger('update', attributes);
                 window.Intercom('update', attributes);
+
+            } else {
+
             }
 
         }
-        
+
     },
 
     attributes() {
@@ -212,13 +220,16 @@ export default Ember.Service.extend({
         object.utm_medium = this.get('user.model.utm_medium');
         object.utm_content = this.get('user.model.utm_content');
         //
-        object.authentication = 'email';
-        if ( this.get('user.model.google_user.id') ) {
-            object.authentication = 'google';
-        } else if ( this.get('user.model.facebook_user.id') ) {
-            object.authentication = 'facebook';
+        if ( this.get('user.model') ) {
+            if ( this.get('user.model.google_user.id') ) {
+                object.authentication = 'google';
+            } else if ( this.get('user.model.facebook_user.id') ) {
+                object.authentication = 'facebook';
+            } else {
+                object.authentication = 'email';
+            }
         }
-
+        
         window.language_identifier = object.language;
 
         return object;
@@ -232,7 +243,7 @@ export default Ember.Service.extend({
         var data = { app_id: this.get('id') };
 
         //
-        this.set('current_language', data.language_override);
+        //this.set('current_language', data.language_override);
 
         // IF USER IS LOGGED OUT, BUT HAS LOGGED IN BEFORE
         if ( this.get('session.authenticated') === false ) {
@@ -244,7 +255,9 @@ export default Ember.Service.extend({
         // MERGE USER DATA
         var object = this.attributes();
         for ( var param in object ) {
-            data[param] = object[param];
+            if ( object[param] ) {
+                data[param] = object[param];
+            }
         }
 
         // NEED TO shutdownT DOWN IF REBOOTING
@@ -254,6 +267,8 @@ export default Ember.Service.extend({
 
         //
         window.Intercom('boot', data);
+        this.debugger('boot', data);
+
         this.set('booted', true);
 
         //
@@ -266,6 +281,7 @@ export default Ember.Service.extend({
         if ( this.shouldinit() ) {
 
             window.Intercom('shutdown');
+            this.debugger('shutdown');
             this.set('booted', false);
 
         }
