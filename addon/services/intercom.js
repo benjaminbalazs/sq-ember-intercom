@@ -161,7 +161,7 @@ export default Ember.Service.extend({
 
     update() {
 
-        if ( this.shouldinit() ) {
+        if ( this.shouldinit() === true ) {
 
             var attributes = this.attributes();
 
@@ -393,9 +393,13 @@ export default Ember.Service.extend({
 
     },
 
-    debugger(name, action) {
+    debugger(name, action, data) {
         if ( this.get('debug') ) {
-            console.log('intercom:', name, action);
+            if ( data ) {
+                console.log('intercom:', name, action, data);
+            } else {
+                console.log('intercom:', name, action);
+            }
         }
     },
 
