@@ -173,7 +173,10 @@ export default Ember.Service.extend({
             } else if ( config.INTERCOM.public === true ) {
 
                 this.debugger('update');
-                window.Intercom('update');
+                window.Intercom('update', {
+                    language: this.get('user.language_identifier'),
+                    language_override: this.get('user.language_identifier'),
+                });
 
             }
 
