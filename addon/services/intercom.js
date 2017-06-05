@@ -26,6 +26,10 @@ export default Ember.Service.extend({
                         this.set('debug', true);
                     }
 
+                    if ( config.INTERCOM.public === true ) {
+                        this.get('user').on('storage', this, this.didTrigger);
+                    }
+
                     this.set('id', config.INTERCOM.app_id);
 
                     // LISTEN TO USER TO BE LOADED
@@ -34,10 +38,6 @@ export default Ember.Service.extend({
                     //
                     this.get('session').on('logout', this, this.shutdown);
 
-                    if ( config.INTERCOM.public === true ) {
-                        this.boot();
-                    }
-
                 }
 
             }
@@ -45,6 +45,14 @@ export default Ember.Service.extend({
         }
 
 	},
+
+    didTrigger() {
+
+        this.boot();
+
+        this.get('user').off('storage', this, this.didTrigger);
+
+    },
 
     script() {
 
@@ -235,7 +243,7 @@ export default Ember.Service.extend({
         window.language_identifier = object.language;
 
         // FINALISE
-
+    
         var result = {};
 
         for ( var param in object ) {
@@ -271,6 +279,7 @@ export default Ember.Service.extend({
                 data[param] = object[param];
             }
         }
+
 
         // NEED TO shutdownT DOWN IF REBOOTING
         if ( this.get('booted') ) {
