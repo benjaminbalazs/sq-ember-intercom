@@ -165,18 +165,10 @@ export default Ember.Service.extend({
 
             var attributes = this.attributes();
 
-            if ( attributes.email ) {
+            if ( attributes.email || config.INTERCOM.public === true ) {
 
                 this.debugger('update', attributes);
                 window.Intercom('update', attributes);
-
-            } else if ( config.INTERCOM.public === true ) {
-
-                this.debugger('update');
-                window.Intercom('update', {
-                    language: this.get('user.language_identifier'),
-                    language_override: this.get('user.language_identifier'),
-                });
 
             }
 
@@ -196,8 +188,12 @@ export default Ember.Service.extend({
         object.first_name = this.get('user.model.first_name');
         object.last_name = this.get('user.model.last_name');
         //
-        object.language = this.get('user.model.language.identifier');
-        object.language_override = this.get('user.model.language.identifier');
+        //object.language = this.get('user.model.language.identifier');
+        //object.language_override = this.get('user.model.language.identifier');
+
+        object.language = this.get('user.language_identifier');
+        object.language_override = this.get('user.language_identifier');
+        //
         object.countrycode = this.get('user.model.countrycode.code');
         if ( this.get('user.model.citycode.code') ) {
             object.citycode = this.get('user.model.citycode.code');
@@ -238,7 +234,17 @@ export default Ember.Service.extend({
 
         window.language_identifier = object.language;
 
-        return object;
+        // FINALISE
+
+        var result = {};
+
+        for ( var param in object ) {
+            if ( object[param] ) {
+                result[param] = object[param];
+            }
+        }
+
+        return result;
 
     },
 
