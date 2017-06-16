@@ -243,7 +243,7 @@ export default Ember.Service.extend({
         window.language_identifier = object.language;
 
         // FINALISE
-    
+
         var result = {};
 
         for ( var param in object ) {
